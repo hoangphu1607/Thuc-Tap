@@ -1,0 +1,41 @@
+﻿@{
+    var danhmuc = (List<Web_mvc.DB.LoaiDanhMuc>)ViewBag.Loaidanhmuc;
+}
+<ul class="menu menu-root">
+    @foreach (var item in danhmuc.Where(x => x.id_cha == null))
+    {
+    <li class="menu-item menu-item-mega menu-item-group">
+        @Html.ActionLink((string)item.TenLoaiDanhMuc, "Main", "index", null, new { @class = "menu-link" })
+        <span class="menu-toggle"><span><i class="fa fa-angle-right"></i></span></span>
+        @foreach (var check in danhmuc.Where(x2 => x2.id_cha == item.MaLoaiDanhMuc))
+        {
+            if (check != null)
+            {
+            <div class="menu-mega">
+                <ul class="menu menu-sub menu-sub-2">
+                    @foreach (var item2 in danhmuc.Where(x2 => x2.id_cha == item.MaLoaiDanhMuc))
+                    {
+
+                        <li class="menu-item menu-item-group">
+                            @Html.ActionLink((string)item2.TenLoaiDanhMuc, "Main", "index", null, new { @class = "menu-link" })
+                            <span class="menu-toggle"><span><i class="fa fa-angle-right"></i></span></span>
+                            @foreach (var item3 in danhmuc.Where(x2 => x2.id_cha == item2.MaLoaiDanhMuc))
+                            {
+
+                                <ul class="menu menu-sub menu-sub-2">
+                                    <li class="menu-item">@Html.ActionLink((string)item3.TenLoaiDanhMuc, "Main", "index", null, new { @class = "menu-link" })</li>
+                                </ul>
+
+
+                            }
+                        </li>
+
+                    }
+
+                </ul>
+            </div>
+            }
+        }
+    </li>
+    }
+</ul>
